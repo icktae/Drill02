@@ -8,12 +8,14 @@ character = load_image('character.png')
 
 x, y = 0, 90
 
+# 사각이
 while x < 770:
     clear_canvas_now()
     grass.draw_now(400, 30)
     character.draw_now(x, 90)
     x = x + 2
     delay(0.01)
+
 
 while y < 550:
     clear_canvas_now()
