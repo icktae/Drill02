@@ -7,57 +7,52 @@ open_canvas()
 grass = load_image('grass.png')
 character = load_image('character.png')
 
-x, y = 400, 90
-angle = 0
-
-#반복
-while(1):
-    #사각이동
-    while x < 770 :
+# 화면출력 함수
+def render_all(x, y):
         clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, 90)
-        x = x + 4
-        delay(0.01)
+        grass.draw_now(400,30)
+        character.draw_now(x,y)
+        delay(0.1)
 
+# 원 운동 함수
+def run_circle() :
+    print('CIRCLE')
 
-    while y < 550 :
+    cx = 400
+    cy = 300
+    r = 200
+
+    for deg in range(0, 360, 4) :
         clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(770, y)
-        y = y + 4
-        delay(0.01)
-
-    while x > 30 :
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, 550)
-        x = x - 4
-        delay(0.01)
-
-    while y > 90 :
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(30, y)
-        y = y - 4
-        delay(0.01)
-
-    while x <400 :
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, 90)
-        x = x + 4
-        delay(0.01)
-
-    #원 이동
-    while angle < 360 :
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        x = x + math.cos(angle / 360 * 2 * math.pi) * 4
-        y = y + math.sin(angle / 360 * 2 * math.pi) * 4
-        angle = angle + 1
-        delay(0.01)
+        x = cx + r * math.cos(deg / 360 * 2 * math.pi)
+        y = cy + r * math.sin(deg / 360 * 2 * math.pi)
+        render_all(x, y)
         
-     
-close_canvas()
+
+# 사각 운동 함수       
+def run_square() :
+    print('SQUARE')
+
+    # bottom
+    for x in range(50, 750+1, 10) :
+        render_all(x,90)
+
+    # up
+    for y in range(90, 550+1, 10) :
+        render_all(750,y)
+
+    # top
+    for x in range(750, 50-1, -10) :
+        render_all(x,550)
+
+    # down
+    for y in range(550, 90-1, -10) :
+        render_all(50, y)
+
+        
+    pass
+
+# 무한 루프
+while True :
+    run_circle()
+    run_square()
